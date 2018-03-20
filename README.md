@@ -1,4 +1,4 @@
-# asignacion_grupales
+# Script de Asignación de Correctores para trabajos grupales
 
 Para ejecutar el script: 
 ```
@@ -6,9 +6,13 @@ Para ejecutar el script:
 ```
 Donde: 
 * `individuales` es la ruta a un archivo tsv (para que sea simplemente copiar la planilla y listo) con el formato: 
+```
 	Ayudante_individual 	NumGrupo (copiar columnas de la planilla)
+```
 * `cantidades` es un tsv (solo por consitencia con el anterior) con el formato: 
+```
 	Ayudante 	cant_grupos_a_corregir
+```
 
 Lo que hace el script es cargar en un diccionario la relación "Ayudante individual-Grupo", para luego no dejar que alquien que haya corregido ya a los integrantes de algún grupo, les pueda volver a corregir. 
 Luego, carga las cantidades de grupos a corregir por cada corrector. Se asume que la cantidad de grupos a asignar corresponde con la suma de la disponibilidad de los correctores. También, que los Números de grupos van de 1 a N, sin saltos ni nada por el estilo (sino, no va a andar). Se crea una lista con los correctores, donde cada corrector aparece tantas veces como su disponibilidad diga.  
