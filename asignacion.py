@@ -16,6 +16,10 @@ def calcular_conflictos(asignacion, banned):
             conflictos.append(i)
     return conflictos
 
+def todos_mismo_corrector(asignacion, conflictos):
+    # Si todos son iguales al primero, son todos iguales
+    return all(map(lambda c: asignacion[c] is asignacion[conflictos[0]], conflictos))
+
 def asignar_random_ayudantes(ayudantes, banned):
     asignacion = ayudantes[:]
     random.shuffle(asignacion)
@@ -23,7 +27,7 @@ def asignar_random_ayudantes(ayudantes, banned):
     conflictos = calcular_conflictos(asignacion, banned)
     while len(conflictos) > 0:
         # me fijo si los conflictos son todos del mismo, para no tener un loop infinito
-        if all(map(lambda c: asignacion[c] is asignacion[conflictos[0]], conflictos)):
+        if todos_mismo_corrector(asignacion, conflictos):
             random.shuffle(asignacion)
             conflictos = calcular_conflictos(asignacion, banned)
             continue
