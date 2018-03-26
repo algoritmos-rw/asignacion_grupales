@@ -45,6 +45,7 @@ def asignar_random_ayudantes(ayudantes, banned):
 
 def main():
     banned = {}
+    grupos = {}
     with open(sys.argv[1]) as individuales:
         for l in individuales:
             try:
@@ -54,6 +55,7 @@ def main():
                 # Los grupos se llaman G01, etc
                 grupo = int(grupo[1:]) - 1
                 banned[ay].append(grupo)
+                grupos[grupo] = grupos.get(grupo, 0) + 1
             except ValueError:
                 #salteo alumnos sin grupo
                 pass
@@ -64,15 +66,17 @@ def main():
             ay, cantidad = l.rstrip().split(SEPARADOR)
             ayudantes += list([ay for i in range(int(cantidad))])
 
+    assert len(grupos) == len(ayudantes), "La cantidad de grupos y disponibilidad de ayudantes no concuerdan"
     asignacion = asignar_random_ayudantes(ayudantes, banned)
 
-    for ay in asignacion:
-        # imprimo dos veces para que quede ya para poner en la planilla
+    for i in range(len(grupos)):
         # Ordenar la planilla por numero de grupo para copiar las asignaciones
-        print(ay)
-        print(ay)
+        # Imprimo dos veces para que quede ya para poner en la planilla
+        for j in range(grupos[i]):
+            print(asignacion[i])
 
-main()
+if __name__ == "__main__":
+    main()
 
 
     
