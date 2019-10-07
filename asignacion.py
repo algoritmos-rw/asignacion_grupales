@@ -49,7 +49,8 @@ def main():
     with open(sys.argv[1]) as individuales:
         for l in individuales:
             try:
-                ay, grupo = l.rstrip().split(SEPARADOR)
+                separacion = l.rstrip().split(SEPARADOR)
+                ay, grupo = separacion[0], separacion[-1]
 
                 banned[ay] = banned.get(ay, [])
                 # Los grupos se llaman G01, etc
@@ -66,7 +67,7 @@ def main():
             ay, cantidad = l.rstrip().split(SEPARADOR)
             ayudantes += list([ay for i in range(int(cantidad))])
 
-    assert len(grupos) == len(ayudantes), "La cantidad de grupos y disponibilidad de ayudantes no concuerdan"
+    assert len(grupos) == len(ayudantes), "La cantidad de grupos (" + str(len(grupos)) + ") y disponibilidad de ayudantes (" + str(len(ayudantes)) + ") no concuerdan"
     asignacion = asignar_random_ayudantes(ayudantes, banned)
 
     for i in range(len(grupos)):
